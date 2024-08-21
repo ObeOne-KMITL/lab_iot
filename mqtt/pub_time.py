@@ -10,7 +10,7 @@ while True:
         publish_start_time = time.time()
 
         result = mqttc.publish("test/topic1", "Hello", qos=0)
-        if result.rc == mqtt.MQTT_ERR_SUCCESS:
+        if result.rc == 0:
                 elapsed_time = time.time() - publish_start_time
                 print("Message published successfully")
                 print(f"Time taken to send message and receive acknowledgment: {elapsed_time:.6f} seconds")
