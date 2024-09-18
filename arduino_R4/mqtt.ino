@@ -6,7 +6,6 @@
 
 #include <WiFiS3.h>
 #include <MQTTClient.h>
-//#include <ArduinoJson.h>
 
 const char WIFI_SSID[] = "YOUR_WIFI_SSID";     // CHANGE TO YOUR WIFI SSID
 const char WIFI_PASSWORD[] = "YOUR_WIFI_PASSWORD";  // CHANGE TO YOUR WIFI PASSWORD
