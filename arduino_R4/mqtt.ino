@@ -62,7 +62,7 @@ void connectToMQTT() {
   mqtt.begin(MQTT_BROKER_ADRRESS, MQTT_PORT, network);
 
   // Create a handler for incoming messages
-  mqtt.onMessage(messageHandler);
+  mqtt.onMessage(messageReceived);
 
   Serial.print("Arduino UNO R4 - Connecting to MQTT broker");
 
@@ -89,7 +89,7 @@ void connectToMQTT() {
 
 void sendToMQTT() {
 
-  int val = millis();
+  int val = millis()/1000;
   //int val = analogRead(A0);
   String val_str = String(val);
   char messageBuffer[10];
@@ -103,7 +103,7 @@ void sendToMQTT() {
   Serial.println(messageBuffer);
 }
 
-void messageHandler(String &topic, String &payload) {
+void messageReceived(String &topic, String &payload) {
   Serial.println("Arduino UNO R4 - received from MQTT:");
   Serial.println("- topic: " + topic);
   Serial.println("- payload:");
