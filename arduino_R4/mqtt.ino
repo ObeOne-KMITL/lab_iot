@@ -94,8 +94,8 @@ void sendToMQTT() {
   String val_str = String(val);
   char messageBuffer[10];
   val_str.toCharArray(messageBuffer, 10);
-
   mqtt.publish(PUBLISH_TOPIC, messageBuffer);
+  
   Serial.println("Arduino UNO R4 - sent to MQTT:");
   Serial.print("- topic: ");
   Serial.println(PUBLISH_TOPIC);
