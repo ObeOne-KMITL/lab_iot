@@ -7,7 +7,7 @@ const char* WIFI_SSID = "YOUR_SSID";
 const char* WIFI_PASS = "YOUR_PASSWORD";
 
 // กำหนด IP ของ CoAP Server (จากตัวอย่างที่ 1)
-IPAddress serverIP(192, 168, 1, 123);   // <-- แก้ให้ตรงเครือข่ายคุณ
+IPAddress serverIP(192, 168, 1, 123);   // <-- แก้ให้ตรงเครือข่าย
 const uint16_t COAP_PORT = 5683;
 
 WiFiUDP udp;
@@ -66,6 +66,6 @@ void loop() {
     on = !on;
     const char* body = on ? "on" : "off";
     Serial.print("PUT /led "); Serial.println(body);
-    coap.put(serverIP, COAP_PORT, "led", (uint8_t*)body, strlen(body));
+    coap.put(serverIP, 5683, "led", body);
   }
 }
