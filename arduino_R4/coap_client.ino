@@ -1,6 +1,6 @@
 #include <WiFiS3.h>
 #include <WiFiUdp.h>
-#include <Coap.h>
+#include <coap-simple.h>
 
 // ===== ใส่ WiFi ของคุณ =====
 const char* WIFI_SSID = "YOUR_SSID";
