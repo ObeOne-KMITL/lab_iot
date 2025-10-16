@@ -1,6 +1,6 @@
 #include <WiFiS3.h>
 #include <WiFiUdp.h>
-#include <Coap.h>
+#include <coap-simple.h>
 
 // ===== ใส่ WiFi ของคุณ =====
 const char* WIFI_SSID = "YOUR_SSID";
@@ -25,7 +25,7 @@ void connectWiFi() {
 // ---------- Handlers ----------
 void handlePing(CoapPacket &packet, IPAddress ip, int port) {
   const char* msg = "pong";
-  coap.sendResponse(packet, (uint8_t*)msg, strlen(msg), COAP_CONTENT, COAP_TEXT_PLAIN);
+  coap.sendResponse(ip, port, packet.messageid, msg);
 }
 
 void handleLed(CoapPacket &packet, IPAddress ip, int port) {
@@ -41,17 +41,23 @@ void handleLed(CoapPacket &packet, IPAddress ip, int port) {
     digitalWrite(LED_PIN, LOW);
   } else {
     const char* bad = "use: on|off";
-    coap.sendResponse(packet, (uint8_t*)bad, strlen(bad), COAP_BAD_REQUEST, COAP_TEXT_PLAIN);
+    coap.sendResponse(ip, port, packet.messageid, bad);
     return;
   }
 
   String resp = String("LED=") + (digitalRead(LED_PIN) ? "on" : "off");
-  coap.sendResponse(packet, (uint8_t*)resp.c_str(), resp.length(), COAP_CHANGED, COAP_TEXT_PLAIN);
+  char messageBuffers[100];
+  resp.toCharArray(messageBuffers, 100);
+  coap.sendResponse(ip, port, packet.messageid, messageBuffers);
+
 }
 
 void handleStatus(CoapPacket &packet, IPAddress ip, int port) {
   String s = "ip=" + WiFi.localIP().toString() + ", rssi=" + String(WiFi.RSSI());
-  coap.sendResponse(packet, (uint8_t*)s.c_str(), s.length(), COAP_CONTENT, COAP_TEXT_PLAIN);
+  char messageBuffer[100];
+  s.toCharArray(messageBuffer, 100);
+  coap.sendResponse(ip, port, packet.messageid, messageBuffer);
+  
 }
 
 void setup() {
