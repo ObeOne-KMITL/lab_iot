@@ -2,12 +2,12 @@
 #include <WiFiUdp.h>
 #include <coap-simple.h>
 
-// ===== ใส่ WiFi ของคุณ =====
-const char* WIFI_SSID = "YOUR_SSID";
-const char* WIFI_PASS = "YOUR_PASSWORD";
+// ===== ใส่ WiFi SSID, Password ของตัวเอง =====
+const char WIFI_SSID[] = "panwit_2.4G";     // CHANGE TO YOUR WIFI SSID
+const char WIFI_PASSWORD[] = "0618265454";  // CHANGE TO YOUR WIFI PASSWORD
 
 // กำหนด IP ของ CoAP Server (จากตัวอย่างที่ 1)
-IPAddress serverIP(192, 168, 1, 123);   // <-- แก้ให้ตรงเครือข่าย
+IPAddress serverIP(192, 168, 1, 123);   // <-- แก้ IP ให้ตรงกับ IP ของ CoAP Server
 const uint16_t COAP_PORT = 5683;
 
 WiFiUDP udp;
@@ -28,10 +28,21 @@ void onClientResponse(CoapPacket &packet, IPAddress ip, int port) {
 }
 
 void connectWiFi() {
-  WiFi.begin(WIFI_SSID, WIFI_PASS);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(400);
+  
+int status = WL_IDLE_STATUS;
+  while (status != WL_CONNECTED) {
+    Serial.print("Arduino UNO R4 - Attempting to connect to SSID: ");
+    Serial.println(WIFI_SSID);
+    // Connect to WPA/WPA2 network. Change this line if using open or WEP network:
+    status = WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+
+    // wait 10 seconds for connection:
+    delay(10000);
   }
+  // print your board's IP address:
+  Serial.print("IP Address: ");
+  Serial.println(WiFi.localIP());
+
 }
 
 void setup() {
