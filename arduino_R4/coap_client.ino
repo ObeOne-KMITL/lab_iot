@@ -4,7 +4,7 @@
 
 // ===== ใส่ WiFi SSID, Password ของตัวเอง =====
 const char WIFI_SSID[] = "panwit_2.4G";     // CHANGE TO YOUR WIFI SSID
-const char WIFI_PASSWORD[] = "0618265454";  // CHANGE TO YOUR WIFI PASSWORD
+const char WIFI_PASSWORD[] = "ilovekmitl";  // CHANGE TO YOUR WIFI PASSWORD
 
 // กำหนด IP ของ CoAP Server (จากตัวอย่างที่ 1)
 IPAddress serverIP(192, 168, 1, 123);   // <-- แก้ IP ให้ตรงกับ IP ของ CoAP Server
