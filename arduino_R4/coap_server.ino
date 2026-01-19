@@ -2,9 +2,9 @@
 #include <WiFiUdp.h>
 #include <coap-simple.h>
 
-// ===== ใส่ WiFi ของคุณ =====
-const char* WIFI_SSID = "YOUR_SSID";
-const char* WIFI_PASS = "YOUR_PASSWORD";
+// ===== ใส่ WiFi SSID, Password ของตัวเอง =====
+const char WIFI_SSID[] = "panwit_2.4G";     // CHANGE TO YOUR WIFI SSID
+const char WIFI_PASSWORD[] = "0618265454";  // CHANGE TO YOUR WIFI PASSWORD
 
 const uint16_t COAP_PORT = 5683;
 const int LED_PIN = LED_BUILTIN;
@@ -14,15 +14,25 @@ Coap coap(udp);
 
 // ---------- Utilities ----------
 void connectWiFi() {
-  WiFi.begin(WIFI_SSID, WIFI_PASS);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(400);
+ 
+  int status = WL_IDLE_STATUS;
+  while (status != WL_CONNECTED) {
+    Serial.print("Arduino UNO R4 - Attempting to connect to SSID: ");
+    Serial.println(WIFI_SSID);
+    // Connect to WPA/WPA2 network. Change this line if using open or WEP network:
+    status = WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+
+    // wait 10 seconds for connection:
+    delay(10000);
   }
-  // ตัวเลือก: กำหนด hostname (ถ้ารองรับ)
-  // WiFi.setHostname("uno-r4-coap");
+  // print your board's IP address:
+  Serial.print("IP Address: ");
+  Serial.println(WiFi.localIP());
+
 }
 
 // ---------- Handlers ----------
+
 void handlePing(CoapPacket &packet, IPAddress ip, int port) {
   const char* msg = "pong";
   coap.sendResponse(ip, port, packet.messageid, msg);
