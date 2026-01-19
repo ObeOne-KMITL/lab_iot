@@ -4,7 +4,7 @@
 
 // ===== ใส่ WiFi SSID, Password ของตัวเอง =====
 const char WIFI_SSID[] = "panwit_2.4G";     // CHANGE TO YOUR WIFI SSID
-const char WIFI_PASSWORD[] = "0618265454";  // CHANGE TO YOUR WIFI PASSWORD
+const char WIFI_PASSWORD[] = "ilovekmitl";  // CHANGE TO YOUR WIFI PASSWORD
 
 const uint16_t COAP_PORT = 5683;
 const int LED_PIN = LED_BUILTIN;
